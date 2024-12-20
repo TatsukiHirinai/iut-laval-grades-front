@@ -3,23 +3,30 @@ import { ref } from 'vue'
 
 const mail = ref('');
 const mdp = ref('');
+var status = ref('');
 
-function fetchData() {
-			fetch('http://localhost:3000/api/auth/login', {
-				method: 'GET',
-				headers: {
-					'email': 'prof@example.com',
-					'password': 'password123',
-				}
-			})
-				.then(response => {
-					response.json().then(res => console.log(res));
-				})
-				.catch(err => {
-					console.error(err);
-				});
-		}
+function fetchData(email , password) {
+	console.log(email);
+	console.log(password);
+	const requestOptions = {
+		method: 'POST',
+		headers: { 
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({email: email, password: password})
+	};
+	fetch('http://localhost:3000/api/auth/login', requestOptions)
+		.then(response => successfullConnexion())
+		.catch(response => failedConnexion())
+}
 
+function successfullConnexion() {
+	console.log("oui");
+}
+
+function failedConnexion() {
+	console.log("non");
+}
 
 </script>  
 
@@ -27,7 +34,8 @@ function fetchData() {
 
     <input v-model="mail" placeholder="email" />
     <input v-model="mdp" placeholder="password" />
-    <button @click="fetchData">Valider</button>
+    <button @click="fetchData(mail , mdp)">Valider</button>
+	<p>status : {{ status }}</p>
 
 </template>
 
