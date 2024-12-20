@@ -30,7 +30,7 @@ const options = ref(['Option 1', 'Option 2', 'Option 3', 'Option 4']);
 
 .menu {
   display: flex;
-  justify-content: space-evenly;
+  justify-content:flex-start;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -38,7 +38,11 @@ const options = ref(['Option 1', 'Option 2', 'Option 3', 'Option 4']);
 
 .menu-item {
   position: relative;
-  width: auto;
+  width: 100%;
+}
+
+.dropdown-btn{
+  width: 100%;
 }
 
 .menu-item a {
@@ -67,6 +71,7 @@ const options = ref(['Option 1', 'Option 2', 'Option 3', 'Option 4']);
   padding: 0;
   margin: 0;
   list-style: none;
+  width: 100%;
 }
 
 .dropdown:hover .dropdown-menu {

@@ -8,8 +8,10 @@ import StatFrameList from './StatisticsPage_components/StatFrameList.vue';
   <header>
   </header>
   <StatFrameList />
+  <h2>Stats par cours</h2>
   <DropdownMenu></DropdownMenu>
   <StatFrameList />
+  <h2>Stats par étudiants</h2>
   <DropdownMenu></DropdownMenu>
 </template>
 
