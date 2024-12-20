@@ -9,6 +9,8 @@ import StatFrameList from './StatisticsPage_components/StatFrameList.vue';
   </header>
   <StatFrameList />
   <DropdownMenu></DropdownMenu>
+  <StatFrameList />
+  <DropdownMenu></DropdownMenu>
 </template>
 
 <style scoped>

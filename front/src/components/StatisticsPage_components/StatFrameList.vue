@@ -28,7 +28,7 @@ const cards = ref([
 .container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;  
+  align-items: center;  
   padding: 20px;
 }
 
@@ -42,7 +42,7 @@ const cards = ref([
 }
 
 .card {
-  width: 22%;  
+  width: 20%;  
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;

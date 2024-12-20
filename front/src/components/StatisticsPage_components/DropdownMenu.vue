@@ -1,39 +1,44 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
+
+// Liste des options à afficher dans le menu
+const options = ref(['Option 1', 'Option 2', 'Option 3', 'Option 4']);
 </script>
 
 <template>
-    <header>
-    </header>
-
-    <nav class="navbar">
-        <ul class="menu">
-          <li class="menu-item">
-            <a href="#">Sélectionner un étudiant</a>
+  <nav class="navbar">
+    <ul class="menu">
+      <!-- Élément principal avec dropdown -->
+      <li class="menu-item dropdown">
+        <a href="#" class="dropdown-btn">Sélectionner un étudiant</a>
+        <!-- Menu déroulant visible au survol -->
+        <ul class="dropdown-menu">
+          <li v-for="(option, index) in options" :key="index" class="dropdown-item">
+            <a href="#">{{ option }}</a>
           </li>
         </ul>
-      </nav>
-  </template>
+      </li>
+    </ul>
+  </nav>
+</template>
 
 <style scoped>
-
 .navbar {
-  width: 100%; 
-  background-color: #333; 
+  width: 100%;
+  background-color: #333;
 }
 
 .menu {
-  display: flex; 
-  justify-content: space-evenly; 
-  list-style: none; 
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 
-
 .menu-item {
-  position: relative; 
-  width: 100%;
+  position: relative;
+  width: auto;
 }
 
 .menu-item a {
@@ -44,32 +49,38 @@ import { ref } from 'vue'
   text-align: center;
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block; 
+.menu-item a:hover {
+  background-color: #444;
 }
 
+/* Styles pour le menu déroulant */
 .dropdown-menu {
-  display: none; 
-  position: absolute; 
-  left: 0; 
-  top: 100%; 
-  background-color: #444; 
+  display: none; /* Masqué par défaut */
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: #444;
   border-radius: 4px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); 
-  min-width: 100%; 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  z-index: 10;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-.dropdown-menu li {
+.dropdown:hover .dropdown-menu {
+  display: block; /* Visible au survol */
+}
+
+.dropdown-item a {
+  display: block;
   padding: 10px;
-}
-
-.dropdown-menu a {
   color: white;
   text-decoration: none;
-  display: block;
 }
 
-.dropdown-menu a:hover {
+.dropdown-item a:hover {
   background-color: #666;
 }
 </style>
