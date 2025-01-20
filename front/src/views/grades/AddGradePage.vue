@@ -18,7 +18,8 @@
         const requestOptions = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
             },
             body: JSON.stringify({
                 student: student,
@@ -45,7 +46,8 @@
         const requestOptions = {
             method: 'GET',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
             }
         }
         try {
@@ -66,7 +68,8 @@
         const requestOptions = {
             method: 'GET',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
             }
         }
         try {
