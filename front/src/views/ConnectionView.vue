@@ -5,7 +5,7 @@ const mail = ref('');
 const mdp = ref('');
 var status = ref('');
 
-function fetchData(email , password) {
+async function fetchData(email , password) {
 	const requestOptions = {
 		method: 'POST',
 		headers: { 
@@ -13,24 +13,20 @@ function fetchData(email , password) {
 		},
 		body: JSON.stringify({email: email, password: password})
 	};
-	fetch('http://localhost:3000/api/auth/login', requestOptions)
-		.then((response) => {
-			if (response.ok) {
-				successfullConnexion(response.json());
-			} else {
-				failedConnexion(response.status);
+	try {
+		const response = await fetch('http://localhost:3000/api/auth/login', requestOptions)
+		if (!response.ok) {
+				throw new Error('Network response was not ok');
 			}
-		})
-}
 
-function successfullConnexion(response) {
-	console.log(response.then((value) => `${value.token}`));
+			const data = await response.json();
 
-}
-
-function failedConnexion(errorCode) {
-	console.log("non : " + errorCode);
-	status = mail;
+			console.log(data['token']);
+	} catch (error) {
+        // Handle errors (network issues, invalid response, etc.)
+        console.error('There was a problem with the fetch operation:', error);
+    }
+	
 }
 
 </script>  
