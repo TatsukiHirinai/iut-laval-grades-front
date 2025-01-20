@@ -63,6 +63,11 @@ async function deleteCourse(id) {
     }
     fetchCourses();
 }
+
+function editCourse(course) {
+    router.push({ name: 'editCourses', params: { id: course.id } });
+}
+
 </script>  
 
 <template>

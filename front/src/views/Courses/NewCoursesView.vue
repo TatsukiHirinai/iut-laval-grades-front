@@ -32,11 +32,13 @@ async function AddCourses(code , nom , credit , description) {
         const data = await response.json();
         
         status.value = 'The course has been added successfully';
+        router.push('/courses');
         return data;
     } catch (error) {
         status.value = 'There was a problem please try again';
         return null;
     }
+    
 }
 
 function cancel() {
@@ -45,26 +47,27 @@ function cancel() {
 </script>  
 
 <template>
-
-        <br><br>
-        <p>Code du cours (min 2 charactere)</p>
-    	<input v-model="code" placeholder="code du cours" type="text"
-        minlength="2"/>
-        <br><br>
-        <p>Nom du cours</p>
-        <input v-model="nom" placeholder="nom du cours" type="text"/>
-        <br><br>
-        <p>Crédits du cours (entre 1 et 60)</p>
-        <input v-model="credit" type="number"     
-            min="1"
-            max="60"
-            placeholder="Enter a number between 1 and 100"/>
-        <br><br>
-        <p>Desciption du cours</p>
-        <input v-model="description" placeholder="description" type="text"/>
-        <br><br>
-        <p>{{ status }}</p>
-        <button @click="AddCourses(code , nom , credit , description)">Ajouter</button>
-        <button @click="cancel()">Annuler</button>
+        <form @submit.prevent="submitForm">
+            <br><br>
+            <p>Code du cours (min 2 charactere)</p>
+            <input v-model="code" placeholder="code du cours" type="text"
+            minlength="2"/>
+            <br><br>
+            <p>Nom du cours</p>
+            <input v-model="nom" placeholder="nom du cours" type="text"/>
+            <br><br>
+            <p>Crédits du cours (entre 1 et 60)</p>
+            <input v-model="credit" type="number"     
+                min="1"
+                max="60"
+                placeholder="Enter a number between 1 and 100"/>
+            <br><br>
+            <p>Desciption du cours</p>
+            <input v-model="description" placeholder="description" type="text"/>
+            <br><br>
+            <p>{{ status }}</p>
+            <button @click="AddCourses(code , nom , credit , description)">Ajouter</button>
+            <button @click="cancel()">Annuler</button>
+        </form>
 
 </template>
