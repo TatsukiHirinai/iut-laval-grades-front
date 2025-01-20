@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineProps } from 'vue';
 
-// Liste des options à afficher dans le menu
-const options = ref(['Option 1', 'Option 2', 'Option 3', 'Option 4']);
+// Déclarez une prop pour les options
+const props = defineProps<{
+  options: string[]
+}>();
+console.log('DropdownMenu props', props.options[0]);
 </script>
 
 <template>
@@ -13,7 +16,7 @@ const options = ref(['Option 1', 'Option 2', 'Option 3', 'Option 4']);
         <a href="#" class="dropdown-btn">Sélectionner un étudiant</a>
         <!-- Menu déroulant visible au survol -->
         <ul class="dropdown-menu">
-          <li v-for="(option, index) in options" :key="index" class="dropdown-item">
+          <li v-for="(option, index) in props.options" :key="index" class="dropdown-item">
             <a href="#">{{ option }}</a>
           </li>
         </ul>
