@@ -21,10 +21,12 @@ async function fetchData(email , password) {
 
 			const data = await response.json();
 
-			console.log(data['token']);
+			localStorage.setItem('authToken', data['token']);
+			
 	} catch (error) {
         // Handle errors (network issues, invalid response, etc.)
         console.error('There was a problem with the fetch operation:', error);
+
     }
 	
 }
