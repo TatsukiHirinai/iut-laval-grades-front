@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import StatisticsPage from './components/StatisticsPage.vue';
+import StatisticsPage from '../components/StatisticsPage.vue';
 </script>
 
 <template>
