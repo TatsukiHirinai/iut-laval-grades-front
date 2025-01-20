@@ -3,8 +3,8 @@
     import { useRouter } from 'vue-router'
 
     const router = useRouter()
-    const student  = ref('')
-    const course   = ref('')
+    const studentsList = ref('')
+    const coursesList = ref('')
     const grade    = ref('')
     const semester = ref('')
     const year     = ref('')
@@ -40,20 +40,75 @@
             status.value = 'Input error'
         }
     }
+
+    async function getStudentsList() {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+        try {
+            const response = await fetch('http://localhost:3000/api/students', requestOptions)
+            if (!response.ok) {
+                throw new Error('Network response was not ok')
+            }
+            const data = await response.json()
+            studentsList = data
+            status = 'success'
+        } catch (error) {
+            console.error('There was a problem with the fetch operation :', error)
+            status = 'Fetch error'
+        }
+    }
+
+    async function getCoursesList() {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+        try {
+            const response = await fetch('http://localhost:3000/api/courses', requestOptions)
+            if (!response.ok) {
+                throw new Error('Network response was not ok')
+            }
+            const data = await response.json()
+            coursesList = data
+            status = 'success'
+        } catch (error) {
+            console.error('There was a problem with the fetch operation :', error)
+            status = 'Fetch error'
+        }
+    }
+
+    getStudentsList()
+    getCoursesList()
 </script>
 
 <template>
     <h2>Ajouter une note</h2>
     <label>Etudiant</label><br>
-    <select></select><br>
+    <select>
+        <option value="" default>Sélectionner un étudiant</option>
+        <option v-for="student in studentsList" :key="student.id" :value="student.id">
+            {{ student.firstName }} {{ student.lastName }}
+        </option>
+    </select><br>
     <label>Cours</label><br>
-    <select></select><br>
+    <select>
+        <option value="" default>Sélectionner un cours</option>
+        <option v-for="course in coursesList" :key="course.id" :value="course.id">
+            {{ course.name }}
+        </option>
+    </select><br>
     <label>Note</label><br>
-    <input v-model="grade" type="number" value="0"><br>
+    <input type="number" v-model="grade" placeholder="0"><br>
     <label>Semestre</label><br>
-    <input v-model="semester" type="text" placeholder="S1, S2, etc."><br>
+    <input type="text" v-model="semester" placeholder="S1, S2, etc."><br>
     <label>Année</label><br>
-    <input v-model="year" type="text" placeholder="2023-2024" value="2025"><br>
+    <input type="text" v-model="year" placeholder="2025"><br>
     <button @click="goToGradesPage">Annuler</button>
     <button @click="addGrade">Ajouter</button>
 </template>
