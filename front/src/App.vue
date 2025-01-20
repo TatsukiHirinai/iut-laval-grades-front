@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import ConnectionView from './views/ConnectionView.vue';
 </script>
@@ -9,6 +9,3 @@ import ConnectionView from './views/ConnectionView.vue';
 
   <ConnectionView />
 </template>
-
-<style scoped>
-</style>
