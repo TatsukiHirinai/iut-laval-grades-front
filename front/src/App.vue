@@ -1,13 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/students/add">Ajouter un étudiant</RouterLink>
-  </nav>
-  <main>
-    <RouterView />
-  </main>
+  <header>
+  </header>
+
+  <RouterView />
 </template>
+
+<style scoped>
+</style>
