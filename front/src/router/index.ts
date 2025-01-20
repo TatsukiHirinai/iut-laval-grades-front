@@ -14,6 +14,16 @@ const router = createRouter({
       component: () => import('../views/students/AddStudentView.vue'),
     },
     {
+      path: '/students',
+      name: 'students',
+      component: () => import('../views/students/ListStudentView.vue'),
+    },
+    {
+      path: '/students/:id',
+      name: 'getstudent',
+      component: () => import('../views/students/GetStudentView.vue'),
+    },
+    {
     path: '/connection',
     name: 'connection',
     component: () => import('../views/ConnectionView.vue'),

@@ -6,7 +6,6 @@ const lastName = ref('');
 const dateOfBirth = ref('');
 const email = ref('');
 const studentId = ref('');
-const authToken = localStorage.getItem('authToken');
 
 function removeCircularReferences() {
   const seen = new WeakSet();
@@ -46,7 +45,7 @@ function createStudent() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${authToken}`,
+        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
       },
       body: studentString,
     }
