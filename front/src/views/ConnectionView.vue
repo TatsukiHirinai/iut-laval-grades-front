@@ -22,10 +22,17 @@ async function fetchData(email , password) {
 			const data = await response.json();
 
 			localStorage.setItem('authToken', data['token']);
-			
+			localStorage.setItem('id', data['professor'].id); 
+			localStorage.setItem('email', data['professor'].email); 
+			localStorage.setItem('firstName', data['professor'].firstName); 
+			localStorage.setItem('departement', data['professor'].department); 
+
+			status.value = 'success';
+
 	} catch (error) {
         // Handle errors (network issues, invalid response, etc.)
         console.error('There was a problem with the fetch operation:', error);
+		status.value = 'Le mot de passe ou le mail est/sont incorrect(s)';
 
     }
 	
