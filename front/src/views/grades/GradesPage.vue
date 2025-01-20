@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <SearchBar />
-    <SearchButton />
+    <SearchBar /><br>
+    <SearchButton /><br>
     <SearchResultDisplay />
 </template>
