@@ -5,7 +5,12 @@ import ConnectionView from './views/ConnectionView.vue';
 
 <template>
   <header>
+    <nav>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/students/add">Add Student</RouterLink>
+      <RouterLink to="/connection">Connexion</RouterLink>
+    </nav>
   </header>
 
-  <ConnectionView />
+  <RouterView />
 </template>
