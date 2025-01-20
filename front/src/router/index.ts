@@ -7,6 +7,11 @@ const router = createRouter({
       path: '/grades',
       name: 'grades',
       component: () => import('../views/grades/GradesPage.vue')
+    },
+    {
+      path: '/grades/new',
+      name: 'addGrade',
+      component: () => import('../views/grades/AddGradePage.vue')
     }
   ],
 })
