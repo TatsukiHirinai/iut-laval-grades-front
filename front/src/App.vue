@@ -1,13 +1,11 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import ConnectionView from './views/ConnectionView.vue';
 </script>
 
 <template>
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/students/add">Ajouter un étudiant</RouterLink>
-  </nav>
-  <main>
-    <RouterView />
-  </main>
+  <header>
+  </header>
+
+  <ConnectionView />
 </template>
