@@ -6,8 +6,11 @@ import ConnectionView from './views/ConnectionView.vue';
 <template>
   <header>
   </header>
-
-  <ConnectionView />
+  <nav>
+    <router-link to="/courses">Courses</router-link>
+    <router-link to="/connection">Connection</router-link>
+    <router-view></router-view>
+  </nav>
 </template>
 
 <style scoped>

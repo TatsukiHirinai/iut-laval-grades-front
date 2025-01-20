@@ -13,6 +13,16 @@ const router = createRouter({
     name: 'connection',
     component: () => import('../views/ConnectionView.vue'),
     },
+    {
+      path: '/courses',
+      name: 'courses',
+      component: () => import('../views/Courses/CoursesView.vue'),
+    },
+    {
+      path: '/courses/new',
+      name: 'newCourses',
+      component: () => import('../views/Courses/NewCoursesView.vue'),
+    }
   ],
 })
 
