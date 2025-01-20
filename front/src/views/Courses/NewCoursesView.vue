@@ -9,14 +9,15 @@ const description = ref('');
 
 token = localStorage.getItem('authToken');
 
-async function fetchCourses() {
+async function AddCourses(code , nom , credit , description) {
     const requestOptions = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-        }
-    };
+		method: 'POST',
+		headers: { 
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({code: code, name: nom , credits : credit , description : description})
+	};
     try {
         const response = await fetch('http://localhost:3000/api/courses', requestOptions);
         if (!response.ok) {
