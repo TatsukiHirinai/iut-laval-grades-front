@@ -14,7 +14,7 @@ async function fetchCourses() {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token.value}`, // Use the token from ref
+            'Authorization': `Bearer ${token.value}`,
         },
     };
     try {
@@ -42,6 +42,26 @@ const filteredCourses = computed(() =>
 
 function addCourse() {
     router.push('/courses/new');
+}
+
+
+async function deleteCourse(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token.value}`, 
+        },
+    };
+    try {
+        const response = await fetch('http://localhost:3000/api/courses/'+id, requestOptions);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+    fetchCourses();
 }
 </script>  
 
@@ -73,8 +93,8 @@ function addCourse() {
             <td>{{ course.name }}</td>
             <td>{{ course.credits }}</td>
             <td>
-              <button @click="editCourse(course)" class="edit-btn">✏️ Modifier</button>
-              <button @click="deleteCourse(course)" class="delete-btn">🗑️ Supprimer</button>
+              <button @click="editCourse(course)">✏️ Modifier</button>
+              <button @click="deleteCourse(course.id)">🗑️ Supprimer</button>
             </td>
           </tr>
         </tbody>
