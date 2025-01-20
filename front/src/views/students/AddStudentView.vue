@@ -6,35 +6,7 @@ const lastName = ref('');
 const dateOfBirth = ref('');
 const email = ref('');
 const studentId = ref('');
-const id = ref('');
 const authToken = localStorage.getItem('authToken');
-
-async function fetchData(email, password) {
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email: email, password: password })
-  };
-  try {
-    const response = await fetch('http://localhost:3000/api/auth/login', requestOptions)
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-
-    localStorage.setItem('authToken', data['token']);
-
-    let authToken = localStorage.getItem('authToken');
-
-    console.log(authToken);
-
-  } catch (error) {
-    console.error('There was a problem with the fetch operation:', error);
-  }
-}
 
 function removeCircularReferences() {
   const seen = new WeakSet();
@@ -50,8 +22,6 @@ function removeCircularReferences() {
 }
 
 function createStudent() {
-  fetchData("prof@example.com", "password123");
-
   try {
     const student = {
       id: Math.random() * 1243,
