@@ -1,6 +1,8 @@
 <script setup>
     import { ref } from 'vue'
+    import { useRouter } from 'vue-router'
 
+    const router = useRouter()
     const student  = ref('')
     const course   = ref('')
     const grade    = ref('')
@@ -9,7 +11,7 @@
     var   status   = ref('')
 
     function goToGradesPage() {
-        this.$router.push('/grades')
+        router.push('/grades')
     }
 
     async function addGrade(student, course, grade, semester, year) {
