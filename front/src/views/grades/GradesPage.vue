@@ -1,15 +1,16 @@
 <script setup>
-    import HeaderPlaceholder from './components/HeaderPlaceholder.vue'
-    import AddGradePageRedirectButton from './components/AddGradePageRedirectButton.vue'
-    import SearchBar from './components/SearchBar.vue'
-    import SelectStudentsDropdown from './components/SelectStudentsDropdown.vue'
-    import GradesTable from './components/GradesTable.vue'
+    import { ref } from 'vue'
+
+    const input = ref('')
+
+    function goToAddGradePage() {
+        this.$router.push('/grades/new')
+    }
 </script>
 
 <template>
-    <HeaderPlaceholder /><br>
-    <h2>Notes des étudiants <AddGradePageRedirectButton /></h2>
-    <SearchBar /><br>
-    <SelectStudentsDropdown />
-    <GradesTable />
+    <h2>Notes des étudiants <button @click="goToAddGradePage">Ajouter une note</button></h2>
+    <input v-model="input" type="text" placeholder="Rechercher..."><br>
+    <select></select><br>
+    <div></div>
 </template>

@@ -1,12 +1,5 @@
 <script setup>
     import { ref } from 'vue'
-    import HeaderPlaceholder from './components/HeaderPlaceholder.vue'
-    import SelectStudentDropdown from './components/SelectStudentDropdown.vue'
-    import SelectCourseDropdown from './components/SelectCourseDropdown.vue'
-    import GradeInput from './components/GradeInput.vue'
-    import SemesterInput from './components/SemesterInput.vue'
-    import YearInput from './components/YearInput.vue'
-    import CancelButton from './components/CancelButton.vue'
 
     const student  = ref('')
     const course   = ref('')
@@ -15,7 +8,11 @@
     const year     = ref('')
     var   status   = ref('')
 
-    async function fetchData(student, course, grade, semester, year) {
+    function goToGradesPage() {
+        this.$router.push('/grades')
+    }
+
+    async function addGrade(student, course, grade, semester, year) {
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -44,13 +41,17 @@
 </script>
 
 <template>
-    <HeaderPlaceholder />
     <h2>Ajouter une note</h2>
-    <SelectStudentDropdown /><br>
-    <SelectCourseDropdown /><br>
-    <GradeInput /><br>
-    <SemesterInput /><br>
-    <YearInput /><br>
-    <CancelButton />
-    <button @click="fetchData()">Ajouter</button>
+    <label>Etudiant</label><br>
+    <select></select><br>
+    <label>Cours</label><br>
+    <select></select><br>
+    <label>Note</label><br>
+    <input v-model="grade" type="number" value="0"><br>
+    <label>Semestre</label><br>
+    <input v-model="semester" type="text" placeholder="S1, S2, etc."><br>
+    <label>Année</label><br>
+    <input v-model="year" type="text" placeholder="2023-2024" value="2025"><br>
+    <button @click="goToGradesPage">Annuler</button>
+    <button @click="addGrade">Ajouter</button>
 </template>
