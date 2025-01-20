@@ -3,46 +3,59 @@
     import { useRouter } from 'vue-router'
 
     const router = useRouter()
-    const studentsList = ref('')
     const input = ref('')
 
     function goToAddGradePage() {
         router.push('/grades/new')
     }
-
-    async function getStudentsList() {
-        const requestOptions = {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-            }
-        }
-        try {
-            const response = await fetch('http://localhost:3000/api/students', requestOptions)
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
-            }
-            const data = await response.json()
-            studentsList = data
-            status = 'success'
-        } catch (error) {
-            console.error('There was a problem with the fetch operation :', error)
-            status = 'Fetch error'
-        }
-    }
-
-    getStudentsList()
 </script>
 
 <template>
     <h2>Notes des étudiants <button @click="goToAddGradePage">Ajouter une note</button></h2>
     <input v-model="input" type="text" placeholder="Rechercher..."><br>
-    <select>
+    <select v-model="selectedStudent">
         <option value="" default>Sélectionner un étudiant</option>
-        <option v-for="student in students" :key="student.id" :value="student.id">
+        <option v-for="student in studentsList" :key="student.id" :value="student.id">
             {{ student.firstName }} {{ student.lastName }}
         </option>
     </select><br>
     <div></div>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                studentsList: [],
+                gradesList: [],
+                selectedStudent: ''
+            }
+        },
+        async mounted() {
+            this.fetchStudentsList(),
+            this.fetchGradesList()
+        },
+        methods: {
+            async fetchStudentsList() {
+                try {
+                    const requestOptions = {method: 'GET', headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`}}
+                    const response = await fetch('http://localhost:3000/api/students', requestOptions)
+                    const data = await response.json()
+                    this.studentsList = data
+                } catch (error) {
+                    console.error('Error fetching student list:', error)
+                }
+            },
+            async fetchGradesList() {
+                try {
+                    const requestOptions = {method: 'GET', headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`}}
+                    const response = await fetch('http://localhost:3000/api/grades', requestOptions)
+                    const data = await response.json()
+                    this.gradesList = data
+                } catch (error) {
+                    console.error('Error fetching grades list:', error)
+                }
+            }
+        }
+    }
+</script>

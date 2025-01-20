@@ -1,106 +1,28 @@
 <script setup>
-    import { ref } from 'vue'
     import { useRouter } from 'vue-router'
 
     const router = useRouter()
-    const studentsList = ref('')
-    const coursesList = ref('')
-    const grade    = ref('')
-    const semester = ref('')
-    const year     = ref('')
-    var   status   = ref('')
 
     function goToGradesPage() {
-        router.push('/grades')
-    }
-
-    async function addGrade(student, course, grade, semester, year) {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-            },
-            body: JSON.stringify({
-                student: student,
-                course: course,
-                grade: grade,
-                semester: semester,
-                year: year
-            })
-        }
         try {
-            const response = await fetch('http://localhost:3000/api/grades', requestOptions)
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
-            }
-            const data = await response.json()
-            status.value = 'success'
+            router.push('/grades')
         } catch (error) {
-            console.error('There was a problem with the fetch operation:', error)
-            status.value = 'Input error'
+            console.error('Error redirecting to Grades Page :', error)
         }
     }
-
-    async function getStudentsList() {
-        const requestOptions = {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-            }
-        }
-        try {
-            const response = await fetch('http://localhost:3000/api/students', requestOptions)
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
-            }
-            const data = await response.json()
-            studentsList = data
-            status = 'success'
-        } catch (error) {
-            console.error('There was a problem with the fetch operation :', error)
-            status = 'Fetch error'
-        }
-    }
-
-    async function getCoursesList() {
-        const requestOptions = {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-            }
-        }
-        try {
-            const response = await fetch('http://localhost:3000/api/courses', requestOptions)
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
-            }
-            const data = await response.json()
-            coursesList = data
-            status = 'success'
-        } catch (error) {
-            console.error('There was a problem with the fetch operation :', error)
-            status = 'Fetch error'
-        }
-    }
-
-    getStudentsList()
-    getCoursesList()
 </script>
 
 <template>
     <h2>Ajouter une note</h2>
     <label>Etudiant</label><br>
-    <select>
+    <select v-model="selectedStudent">
         <option value="" default>Sélectionner un étudiant</option>
         <option v-for="student in studentsList" :key="student.id" :value="student.id">
             {{ student.firstName }} {{ student.lastName }}
         </option>
     </select><br>
     <label>Cours</label><br>
-    <select>
+    <select v-model="selectedCourse">
         <option value="" default>Sélectionner un cours</option>
         <option v-for="course in coursesList" :key="course.id" :value="course.id">
             {{ course.name }}
@@ -115,3 +37,69 @@
     <button @click="goToGradesPage">Annuler</button>
     <button @click="addGrade">Ajouter</button>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                studentsList: [],
+                coursesList: [],
+                selectedStudent: '',
+                selectedCourse: '',
+                grade: '',
+                semester: '',
+                year: ''
+            }
+        },
+        async mounted() {
+            this.fetchStudentsList(),
+            this.fetchCoursesList()
+        },
+        methods: {
+            async fetchStudentsList() {
+                try {
+                    const requestOptions = {method: 'GET', headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`}}
+                    const response = await fetch('http://localhost:3000/api/students', requestOptions)
+                    const data = await response.json()
+                    this.studentsList = data
+                } catch (error) {
+                    console.error('Error fetching student list:', error)
+                }
+            },
+            async fetchCoursesList() {
+                try {
+                    const requestOptions = {method: 'GET', headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`}}
+                    const response = await fetch('http://localhost:3000/api/courses', requestOptions)
+                    const data = await response.json()
+                    this.coursesList = data
+                    this.id = data.length
+                } catch (error) {
+                    console.error('Error fetching courses list:', error)
+                }
+            },
+            async addGrade(id, selectedStudent, selectedCourse, grade, semester, year) {
+                try {
+                    const requestOptions = {
+                        method: 'POST',
+                        headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`},
+                        body: JSON.stringify({
+                            studentId: '3',
+                            courseId: '2',
+                            grade: '5',
+                            semester: 'S2',
+                            academicYear: '2024-2025'
+                        })
+                    }
+                    const response = await fetch('http://localhost:3000/api/grades', requestOptions)
+                    if (!response.ok) console.log('HTTP Error :', response.status)
+                    else {
+                        const data = await response.json()
+                        if (data) console.log('Grade added successfully')
+                    }
+                } catch (error) {
+                    console.error('Error adding grade:', error)
+                }
+            }
+        }
+    }
+</script>
