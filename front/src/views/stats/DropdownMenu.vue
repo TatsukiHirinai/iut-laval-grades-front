@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, defineEmits } from 'vue';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 // Déclarez une prop pour les options
 const props = defineProps<{
-  options: string[]
+  options: string[];
+  menuType: string;
 }>();
-console.log('DropdownMenu props', props.options[0]);
+
+const emit = defineEmits(['select']);
+
+function handleSelection(option: string) {
+  emit('select', { option, menuType: props.menuType }); // Passe l'option et le type de menu
+}
 </script>
 
 <template>
@@ -16,8 +23,12 @@ console.log('DropdownMenu props', props.options[0]);
         <a href="#" class="dropdown-btn">Sélectionner un étudiant</a>
         <!-- Menu déroulant visible au survol -->
         <ul class="dropdown-menu">
-          <li v-for="(option, index) in props.options" :key="index" class="dropdown-item">
-            <a href="#">{{ option }}</a>
+          <li
+            v-for="(option, index) in props.options"
+            :key="index"
+            class="dropdown-item"
+          >
+            <a href="#" @click.prevent="handleSelection(option)">{{ option }}</a>
           </li>
         </ul>
       </li>
