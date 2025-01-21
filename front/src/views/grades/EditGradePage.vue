@@ -37,7 +37,7 @@
     <label>Note</label><br>
     <input type="number" v-model="grade" placeholder="0"><br>
     <RouterLink>
-        <button @click="goToGradesPage">Annuler</button>
+        <button>Annuler</button>
     </RouterLink>
     <button @click="editGrade(grade, currentURL)">Modifier</button>
     <div>{{ status }}</div>
