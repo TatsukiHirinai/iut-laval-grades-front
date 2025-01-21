@@ -14,7 +14,7 @@ async function fetchData(email , password) {
 		body: JSON.stringify({email: email, password: password})
 	};
 	try {
-		const response = await fetch('https://iut-laval-grades-back.railway.internal:3000/api/auth/login', requestOptions) 
+		const response = await fetch('https://`${process.env.API_URL}`:3000/api/auth/login', requestOptions) 
 		if (!response.ok) {
 				throw new Error('Network response was not ok');
 			}
