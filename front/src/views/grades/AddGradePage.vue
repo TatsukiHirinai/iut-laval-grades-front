@@ -4,11 +4,7 @@
     const router = useRouter()
 
     function goToGradesPage() {
-        try {
-            router.push('/grades')
-        } catch (error) {
-            console.error('Error redirecting to Grades Page :', error)
-        }
+        router.push('/grades')
     }
 </script>
 

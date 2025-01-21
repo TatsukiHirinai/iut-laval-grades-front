@@ -52,6 +52,11 @@ const router = createRouter({
       path: '/grades/new',
       name: 'addGrade',
       component: () => import('../views/grades/AddGradePage.vue')
+    },
+    {
+      path: '/grades/:id/edit',
+      name: 'editGrade',
+      component: () => import('../views/grades/EditGradePage.vue')
     }
   ],
 })
