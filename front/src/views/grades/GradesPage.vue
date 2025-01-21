@@ -1,4 +1,5 @@
 <script setup>
+    import { computed } from 'vue'
     import { useRouter } from 'vue-router'
 
     const router = useRouter()
@@ -14,7 +15,12 @@
 
 <template>
     <h2>Notes des étudiants <button @click="goToAddGradePage">Ajouter une note</button></h2>
-    <input v-model="input" type="text" placeholder="Rechercher..."><br>
+    <input v-model="input" type="text" placeholder="Rechercher..." @change="showAvailableStudents(input)"><br>
+    <select v-model="studentId" @change="fetchGradesPerStudentId(studentId)">
+        <option v-for="student in filteredStudentsList" :key="student.id" :value="student.id">
+            {{ student.firstName }} {{ student.lastName }}
+        </option>
+    </select><br>
     <select v-model="studentId" @change="fetchGradesPerStudentId(studentId)">
         <option value="" default>Sélectionner un étudiant</option>
         <option v-for="student in studentsList" :key="student.id" :value="student.id">
@@ -53,7 +59,8 @@
                 gradesList: [],
                 studentGradesList: [],
                 studentId: '',
-                input: ''
+                input: '',
+                filteredStudentsList: ''
             }
         },
         async mounted() {
@@ -67,6 +74,7 @@
                     const response = await fetch('http://localhost:3000/api/students', requestOptions)
                     const data = await response.json()
                     this.studentsList = data
+                    this.filteredStudentsList = this.studentsList
                 } catch (error) {
                     console.error('Error fetching student list:', error)
                 }
@@ -110,6 +118,17 @@
                 } catch (error) {
                     console.error('Error deleting grade:', error)
                 }
+            },
+            async showAvailableStudents(input) {
+                const result = [];
+                for (let i = 0; i < this.studentsList.length; i++) {
+                    const student = this.studentsList[i];
+                    if (student.firstName.toLowerCase().includes(input.toLowerCase())) {
+                        result.push(student);
+                    }
+                }
+
+                this.filteredStudentsList = result;
             }
         }
     }
