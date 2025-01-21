@@ -21,10 +21,17 @@ function editGrade(gradeId) {
             <button class="add-grade-button" @click="goToAddGradePage">Ajouter une note</button>
         </div>
 
-        <div class="filters">
-            <input v-model="input" type="text" placeholder="Rechercher..." class="search-bar"
-                @change="showAvailableStudents(input)" />
-            <select v-model="studentId" class="students-dropdown" @change="fetchGradesPerStudentId(studentId)">
+        <div class="search-bar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input v-model="input" type="text" placeholder="Rechercher..." @change="showAvailableStudents(input)" />
+        </div>
+
+        <div class="search-bar"><select v-model="studentId" class="students-dropdown"
+                @change="fetchGradesPerStudentId(studentId)">
                 <option value="" default>Tous les étudiants</option>
                 <option v-for="student in filteredStudentsList" :key="student.id" :value="student.id">
                     {{ student.firstName }} {{ student.lastName }}

@@ -490,8 +490,6 @@ a {
 }
 
 /* === Grades === */
-
-
 .header h2 {
     margin: 0;
     font-size: 24px;
@@ -519,9 +517,12 @@ a {
     font-size: 16px;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
+    max-width: 800px;
+    width: 100%;
 }
 
 .grades-table {
+    max-width: 800px;
     width: 100%;
     border-collapse: collapse;
     background-color: white;
