@@ -29,6 +29,21 @@ const router = createRouter({
       component: () => import('../views/students/AddStudentView.vue'),
     },
     {
+      path: '/courses',
+      name: 'courses',
+      component: () => import('../views/Courses/CoursesView.vue'),
+    },
+    {
+      path: '/courses/new',
+      name: 'newCourses',
+      component: () => import('../views/Courses/NewCoursesView.vue'),
+    },
+    {
+      path: '/courses/edit/:id',
+      name: 'editCourses',
+      component: () => import('../views/Courses/EditCoursesView.vue'),
+    },
+    {
       path: '/grades',
       name: 'grades',
       component: () => import('../views/grades/GradesPage.vue')
