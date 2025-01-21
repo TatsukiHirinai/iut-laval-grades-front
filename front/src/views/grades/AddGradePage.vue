@@ -1,6 +1,8 @@
 <script setup>
     import { useRouter } from 'vue-router'
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const router = useRouter()
 
     function goToGradesPage() {
@@ -55,7 +57,7 @@
             async fetchStudentsList() {
                 try {
                     const requestOptions = {method: 'GET', headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`}}
-                    const response = await fetch('http://localhost:3000/api/students', requestOptions)
+                    const response = await fetch('http://'+apiUrl+'/api/students', requestOptions)
                     const data = await response.json()
                     this.studentsList = data
                 } catch (error) {
@@ -65,7 +67,7 @@
             async fetchCoursesList() {
                 try {
                     const requestOptions = {method: 'GET', headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`}}
-                    const response = await fetch('http://localhost:3000/api/courses', requestOptions)
+                    const response = await fetch('http://'+apiUrl+'/api/courses', requestOptions)
                     const data = await response.json()
                     this.coursesList = data
                     this.id = data.length
@@ -89,7 +91,7 @@
                             academicYear: String(academicYear)
                         })
                     }
-                    const response = await fetch('http://localhost:3000/api/grades', requestOptions)
+                    const response = await fetch('http://'+apiUrl+'/api/grades', requestOptions)
                     if (!response.ok) console.log('HTTP Error :', response.status)
                     else {
                         const data = await response.json()

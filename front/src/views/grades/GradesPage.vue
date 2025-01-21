@@ -1,6 +1,7 @@
 <script setup>
-    import { computed } from 'vue'
     import { useRouter } from 'vue-router'
+
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const router = useRouter()
 
@@ -71,7 +72,7 @@
             async fetchStudentsList() {
                 try {
                     const requestOptions = {method: 'GET', headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`}}
-                    const response = await fetch('http://localhost:3000/api/students', requestOptions)
+                    const response = await fetch('http://'+apiUrl+'/api/students', requestOptions)
                     const data = await response.json()
                     this.studentsList = data
                     this.filteredStudentsList = this.studentsList
@@ -82,7 +83,7 @@
             async fetchGradesList() {
                 try {
                     const requestOptions = {method: 'GET', headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`}}
-                    const response = await fetch('http://localhost:3000/api/grades', requestOptions)
+                    const response = await fetch('http://'+apiUrl+'/api/grades', requestOptions)
                     const data = await response.json()
                     this.gradesList = data
                 } catch (error) {
@@ -95,7 +96,7 @@
                         method: 'GET',
                         headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`}
                     }
-                    const response = await fetch(`http://localhost:3000/api/grades/student/${studentId}`, requestOptions)
+                    const response = await fetch(`http://`+apiUrl+`/api/grades/student/${studentId}`, requestOptions)
                     const data = await response.json()
                     this.studentGradesList = data
                     console.log(this.studentGradesList)
@@ -109,7 +110,7 @@
                         method: 'DELETE',
                         headers: {'Authorization': `Bearer ${localStorage.getItem('authToken')}`}
                     }
-                    const response = await fetch(`http://localhost:3000/api/grades/${gradeId}`, requestOptions)
+                    const response = await fetch(`http://`+apiUrl+`/api/grades/${gradeId}`, requestOptions)
                     if (!response.ok) {
                         console.log('Network error')
                     } else {

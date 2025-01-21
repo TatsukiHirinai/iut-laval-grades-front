@@ -1,6 +1,8 @@
 <script setup>
     import { useRouter } from 'vue-router'
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const router = useRouter()
 
     function goToGradesPage() {
@@ -38,7 +40,7 @@
                         },
                         body: JSON.stringify({grade: grade})
                     }
-                    const response = await fetch(`http://localhost:3000/api/grades/${currentURL}`, requestOptions)
+                    const response = await fetch(`http://`+apiUrl+`/api/grades/${currentURL}`, requestOptions)
                     if (!response.ok) {
                         console.log('Network error')
                     } else {
