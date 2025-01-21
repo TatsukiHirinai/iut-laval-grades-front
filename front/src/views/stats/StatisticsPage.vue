@@ -49,6 +49,43 @@ async function fetchStudents() {
     }
 }
 
+function getCurrentSchoolYear(): string {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // Les mois sont indexés à partir de 0
+
+    // L'année scolaire commence en septembre et se termine en août
+    if (currentMonth >= 9) {
+        // Si nous sommes en septembre ou plus tard, l'année scolaire est de l'année en cours à l'année suivante
+        return `${currentYear}-${currentYear + 1}`;
+    } else {
+        // Si nous sommes avant septembre, l'année scolaire est de l'année précédente à l'année en cours
+        return `${currentYear - 1}-${currentYear}`;
+    }
+}
+
+async function fetchGlobalData() {
+    const requestOptions = {
+        method: 'GET',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        },
+    };
+    try {
+        const date = getCurrentSchoolYear();
+        const response = await fetch(`http://localhost:3000/api/stats/global?academicYear=${date}`, requestOptions);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        return null;
+    }
+}
+
 onMounted(async () => {
     const courses = await fetchData();
     if (Array.isArray(courses)) {
@@ -57,6 +94,12 @@ onMounted(async () => {
         console.error('Courses data is not an array:', courses);
     }
 
+    const globalData = await fetchGlobalData();
+    if (globalData) {
+        console.log('Global data:', globalData);
+    } else {
+        console.error('No global data received');
+    }
     const students = await fetchStudents();
     if (Array.isArray(students)) {
         studentsList.value = students.map((student: any) => student.name); // Assuming the student object has a 'name' property
