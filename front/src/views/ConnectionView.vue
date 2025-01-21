@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 const mail = ref('');
 const mdp = ref('');
-const apiUrl = import.meta.env.API_URL;
+const apiUrl = import.meta.env.VITE_API_URL;
 var status = ref('');
 
 async function fetchData(email , password) {
