@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 const mail = ref('');
 const mdp = ref('');
+const apiUrl = import.meta.env.VITE_API_URL;
 var status = ref('');
 
 async function fetchData(email , password) {
@@ -14,7 +15,7 @@ async function fetchData(email , password) {
 		body: JSON.stringify({email: email, password: password})
 	};
 	try {
-		const response = await fetch('http://localhost:3000/api/auth/login', requestOptions)
+		const response = await fetch('https://'+apiUrl+'/api/auth/login', requestOptions) 
 		if (!response.ok) {
 				throw new Error('Network response was not ok');
 			}
