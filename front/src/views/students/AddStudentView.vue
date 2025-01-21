@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification';
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const firstName = ref('');
 const lastName = ref('');
 const dateOfBirth = ref('');
@@ -13,6 +14,7 @@ const toast = useToast();
 async function createStudent() {
   try {
     const student = {
+      id: Math.random() * 1243,
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
@@ -29,7 +31,7 @@ async function createStudent() {
       body: JSON.stringify(student),
     };
 
-    const response = await fetch('http://localhost:3000/api/students', requestOptions);
+    const response = await fetch('https://'+apiUrl+'/api/students', requestOptions);
     if (response.ok) {
       toast.success('Étudiant ajouté avec succès!');
     } else {
@@ -38,7 +40,6 @@ async function createStudent() {
     }
   } catch (error) {
     toast.error('Erreur lors de l\'ajout de l\'étudiant.');
-    console.error('Error adding student:', error);
   }
 }
 </script>

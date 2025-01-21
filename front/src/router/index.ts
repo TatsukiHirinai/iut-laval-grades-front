@@ -1,17 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('../views/home/HomeView.vue'),
+      path: '/connection',
+      name: 'connection',
+      component: () => import('../views/ConnectionView.vue'),
     },
     {
-      path: '/students/add',
-      name: 'addstudent',
-      component: () => import('../views/students/AddStudentView.vue'),
+      path: '/',
+      redirect: '/students',
     },
     {
       path: '/students',
@@ -24,9 +23,9 @@ const router = createRouter({
       component: () => import('../views/students/GetStudentView.vue'),
     },
     {
-    path: '/connection',
-    name: 'connection',
-    component: () => import('../views/ConnectionView.vue'),
+      path: '/students/add',
+      name: 'addstudent',
+      component: () => import('../views/students/AddStudentView.vue'),
     },
     {
       path: '/courses',
@@ -44,10 +43,20 @@ const router = createRouter({
       component: () => import('../views/Courses/EditCoursesView.vue'),
     },
     {
-      path: '/stats',
-      name: 'Statistics',
-      component: () => import('../views/stats/StatisticsPage.vue'),
+      path: '/grades',
+      name: 'grades',
+      component: () => import('../views/grades/GradesPage.vue')
     },
+    {
+      path: '/grades/new',
+      name: 'addGrade',
+      component: () => import('../views/grades/AddGradePage.vue')
+    },
+    {
+      path: '/grades/:id/edit',
+      name: 'editGrade',
+      component: () => import('../views/grades/EditGradePage.vue')
+    }
   ],
 })
 
