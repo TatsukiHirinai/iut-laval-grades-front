@@ -4,14 +4,13 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('../views/home/HomeView.vue'),
-    },
-    {
       path: '/connection',
       name: 'connection',
       component: () => import('../views/ConnectionView.vue'),
+    },
+    {
+      path: '/',
+      redirect: '/students',
     },
     {
       path: '/students',
@@ -42,6 +41,11 @@ const router = createRouter({
       path: '/courses/edit/:id',
       name: 'editCourses',
       component: () => import('../views/Courses/EditCoursesView.vue'),
+    },
+    {
+      path: '/stats',
+      name: 'stats',
+      component: () => import('../views/stats/StatisticsPage.vue')
     },
     {
       path: '/grades',
