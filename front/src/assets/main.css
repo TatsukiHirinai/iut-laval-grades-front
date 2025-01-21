@@ -1,5 +1,5 @@
 /* === Général === */
-body{
+body {
     background-color: #f9fafb;
 }
 
@@ -89,7 +89,7 @@ body{
     max-width: 800px;
 }
 
-.ul-student{    
+.ul-student {
     margin-block-start: 0em;
     margin-block-end: 0em;
     padding-inline-start: 0px;
@@ -160,6 +160,7 @@ body{
 
 .form-group {
     display: flex;
+    margin-bottom: 20px;
     flex-direction: column;
 }
 
@@ -214,6 +215,119 @@ body{
 
 .button.add:hover {
     background-color: #20254F;
+}
+
+/* === Cours === */
+.add-btn {
+    background-color: #ff007f;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background-color: #e60072;
+}
+
+.course-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.course-table th,
+.course-table td {
+    text-align: left;
+    padding: 12px 15px;
+}
+
+.course-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    font-size: 14px;
+    color: #666;
+}
+
+.course-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.course-table td {
+    font-size: 14px;
+    color: #333;
+}
+
+.course-table .course-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.icon-btn:hover {
+    opacity: 0.8;
+}
+
+.edit-btn svg {
+    stroke: #007bff;
+}
+
+.delete-btn svg {
+    stroke: #dc3545;
+}
+
+.form-header {
+    margin-bottom: 20px;
+}
+
+.course-form {
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #ff007f;
+}
+
+textarea {
+    resize: none;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
 }
 
 /* === Liens === */

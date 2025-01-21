@@ -1,6 +1,6 @@
 <script setup>
-import { ref , onMounted , computed} from 'vue'
-import { useRoute , useRouter } from 'vue-router';
+import { ref, onMounted, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router';
 
 var courses = ref([]);
 var status = ref('');
@@ -13,24 +13,24 @@ const router = useRouter();
 const route = useRoute();
 const courseId = route.params.id;
 
-async function ModifyCourses(code , nom , credit , description) {
+async function ModifyCourses(code, nom, credit, description) {
     const requestOptions = {
-		method: 'PUT',
-		headers: { 
+        method: 'PUT',
+        headers: {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({code: code, name: nom , credits : credit , description : description})
-	};
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code: code, name: nom, credits: credit, description: description })
+    };
     try {
-        const response = await fetch('http://localhost:3000/api/courses/'+courseId, requestOptions);
+        const response = await fetch('http://localhost:3000/api/courses/' + courseId, requestOptions);
         if (!response.ok) {
             status.value = 'There was a problem please try again';
             throw new Error('Network response was not ok');
         }
 
         const data = await response.json();
-        
+
         status.value = 'The course has been added successfully';
         router.push('/courses');
         return data;
@@ -38,7 +38,7 @@ async function ModifyCourses(code , nom , credit , description) {
         status.value = 'There was a problem please try again';
         return null;
     }
-    
+
 }
 
 function cancel() {
@@ -79,30 +79,43 @@ onMounted(() => {
     fetchCourses(courseId);
 });
 
-</script>  
+</script>
 
 <template>
-        <form @submit.prevent="submitForm">
-            <br><br>
-            <p>Code du cours (min 2 charactere)</p>
-            <input v-model="code" placeholder="code du cours" type="text"
-            minlength="2"/>
-            <br><br>
-            <p>Nom du cours</p>
-            <input v-model="nom" placeholder="nom du cours" type="text"/>
-            <br><br>
-            <p>Crédits du cours (entre 1 et 60)</p>
-            <input v-model="credit" type="number"     
-                min="1"
-                max="60"
-                placeholder="Enter a number between 1 and 100"/>
-            <br><br>
-            <p>Desciption du cours</p>
-            <input v-model="description" placeholder="description" type="text"/>
-            <br><br>
-            <p>{{ status }}</p>
-            <button @click="ModifyCourses(code , nom , credit , description)">Modifier</button>
-            <button @click="cancel()">Annuler</button>
-        </form>
+    <div class="container">
+        <div class="form-header">
+            <h1>Ajouter un cours</h1>
+        </div>
 
+        <form @submit.prevent="submitForm" class="course-form">
+            <div class="form-group">
+                <label for="code">Code du cours</label>
+                <input id="code" v-model="code" type="text" minlength="2" placeholder="Code du cours" required />
+            </div>
+
+            <div class="form-group">
+                <label for="nom">Nom du cours</label>
+                <input id="nom" v-model="nom" type="text" placeholder="Nom du cours" required />
+            </div>
+
+            <div class="form-group">
+                <label for="credits">Crédits</label>
+                <input id="credits" v-model="credit" type="number" min="1" max="60" placeholder="0" required />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" v-model="description" rows="4" placeholder="Description"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <RouterLink to="/courses">
+                    <button type="button" class="button cancel">Annuler</button>
+                </RouterLink>
+                <button type="submit" class="button add"
+                    @click="ModifyCourses(code, nom, credit, description)">Modifier
+                </button>
+            </div>
+        </form>
+    </div>
 </template>
