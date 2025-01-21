@@ -11,7 +11,7 @@ const props = defineProps<{
 
 <template>
   <div class="frame-list">
-    <div class="container">
+    <div class="container" style="min-height: auto;">
       <div class="cards">
         <div v-for="(card, index) in props.cards" :key="index" class="card">
           <h3>{{ card.title }}</h3>
@@ -27,12 +27,6 @@ const props = defineProps<{
 .frame-list {
   width: 100%;  
   box-sizing: border-box; 
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .cards {

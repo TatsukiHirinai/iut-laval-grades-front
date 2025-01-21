@@ -24,7 +24,7 @@ async function AddCourses(code, nom, credit, description) {
         body: JSON.stringify({ code: code, name: nom, credits: credit, description: description })
     };
     try {
-        const response = await fetch('https://'+apiUrl+'/api/courses', requestOptions);
+        const response = await fetch('https://' + apiUrl + '/api/courses', requestOptions);
         if (!response.ok) {
             status.value = 'There was a problem please try again';
             throw new Error('Network response was not ok');
@@ -39,7 +39,6 @@ async function AddCourses(code, nom, credit, description) {
         status.value = 'There was a problem please try again';
         return null;
     }
-
 }
 </script>
 
