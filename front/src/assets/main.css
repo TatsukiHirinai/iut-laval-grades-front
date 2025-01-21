@@ -408,4 +408,7 @@ a {
 .nav-link:hover {
     background-color: #434D94;
     color: #fff;
+/* === Liens === */
+a {
+    text-decoration: none;
 }

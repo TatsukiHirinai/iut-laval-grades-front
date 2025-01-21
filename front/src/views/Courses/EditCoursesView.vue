@@ -31,7 +31,6 @@ async function ModifyCourses(code, nom, credit, description) {
         }
 
         const data = await response.json();
-
         status.value = 'The course has been added successfully';
         router.push('/courses');
         return data;
@@ -39,9 +38,7 @@ async function ModifyCourses(code, nom, credit, description) {
         status.value = 'There was a problem please try again';
         return null;
     }
-
-}
-
+	
 async function fetchCourses(courseId) {
     const requestOptions = {
         method: 'GET',

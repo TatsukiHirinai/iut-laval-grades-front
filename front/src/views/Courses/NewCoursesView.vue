@@ -39,7 +39,6 @@ async function AddCourses(code, nom, credit, description) {
         status.value = 'There was a problem please try again';
         return null;
     }
-
 }
 </script>
 
