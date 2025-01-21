@@ -41,6 +41,7 @@ async function fetchData(email , password) {
 </script>  
 
 <template>
+	
 	<input v-model="mail" placeholder="email" type="email"/>
 	<input v-model="mdp" placeholder="password" type="password"/>
 	<button @click="fetchData(mail , mdp)">Valider</button>

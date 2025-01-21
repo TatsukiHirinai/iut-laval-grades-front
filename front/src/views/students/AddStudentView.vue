@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { useToast } from 'vue-toastification';
 
 const firstName = ref('');
 const lastName = ref('');
@@ -7,20 +8,9 @@ const dateOfBirth = ref('');
 const email = ref('');
 const studentId = ref('');
 
-function removeCircularReferences() {
-  const seen = new WeakSet();
-  return function (key, value) {
-    if (typeof value === "object" && value !== null) {
-      if (seen.has(value)) {
-        return;
-      }
-      seen.add(value);
-    }
-    return value;
-  };
-}
+const toast = useToast();
 
-function createStudent() {
+async function createStudent() {
   try {
     const student = {
       id: Math.random() * 1243,
@@ -31,37 +21,25 @@ function createStudent() {
       studentId: studentId.value,
     };
 
-    const formattedStudent = {
-      firstName: String(student.firstName),
-      lastName: String(student.lastName),
-      email: String(student.email),
-      dateOfBirth: String(student.dateOfBirth),
-      studentId: String(student.studentId),
-    };
-
-    const studentString = JSON.stringify(formattedStudent, removeCircularReferences());
-
     const requestOptions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
       },
-      body: studentString,
-    }
-    fetch('http://localhost:3000/api/students', requestOptions).then((response) => {
-      if (response.ok) {
-        console.log('Student added successfully');
-        console.log(response);
-      } else {
-        response.json().then((error) => {
-          console.error('Error adding student:', error);
-        });
-      }
-    })
+      body: JSON.stringify(student),
+    };
 
+    const response = await fetch('http://localhost:3000/api/students', requestOptions);
+    if (response.ok) {
+      toast.success('Étudiant ajouté avec succès!');
+    } else {
+      const errorData = await response.json();
+      toast.error(`Erreur: ${errorData.error}`);
+    }
   } catch (error) {
-    console.error('Error stringifying student object:', error);
+    toast.error('Erreur lors de l\'ajout de l\'étudiant.');
+    console.error('Error adding student:', error);
   }
 }
 </script>
@@ -101,7 +79,9 @@ function createStudent() {
         </div>
 
         <div class="form-actions">
-          <button type="button" class="button cancel">Annuler</button>
+          <RouterLink to="/students">
+            <button type="button" class="button cancel">Annuler</button>
+          </RouterLink>
           <button type="submit" class="button add">Ajouter</button>
         </div>
       </form>
