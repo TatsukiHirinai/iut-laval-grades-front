@@ -7,6 +7,7 @@ const router = useRouter();
 const mail = ref('');
 const mdp = ref('');
 const toast = useToast();
+const apiUrl = import.meta.env.VITE_API_URL;
 
 async function fetchData() {
 	const requestOptions = {
@@ -17,7 +18,7 @@ async function fetchData() {
 		body: JSON.stringify({ email: mail.value, password: mdp.value })
 	};
 	try {
-		const response = await fetch('http://localhost:3000/api/auth/login', requestOptions)
+		const response = await fetch('https://'+apiUrl+'/api/auth/login', requestOptions) 
 		if (!response.ok) {
 			throw new Error('Network response was not ok');
 		}

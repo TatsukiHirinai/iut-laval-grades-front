@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 
+const apiUrl = import.meta.env.VITE_API_URL;
 var token = ref('');
 var status = ref('');
 const code = ref('');
@@ -23,7 +24,7 @@ async function AddCourses(code, nom, credit, description) {
         body: JSON.stringify({ code: code, name: nom, credits: credit, description: description })
     };
     try {
-        const response = await fetch('http://localhost:3000/api/courses', requestOptions);
+        const response = await fetch('https://'+apiUrl+'/api/courses', requestOptions);
         if (!response.ok) {
             status.value = 'There was a problem please try again';
             throw new Error('Network response was not ok');
