@@ -9,6 +9,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/students">List Student</RouterLink>
       <RouterLink to="/connection">Connexion</RouterLink>
       <RouterLink to="/courses">Courses</RouterLink>
+      <RouterLink to="/grades">Grades</RouterLink>
     </nav>
   </header>
   <RouterView />
