@@ -42,7 +42,12 @@ const router = createRouter({
       path: '/courses/edit/:id',
       name: 'editCourses',
       component: () => import('../views/Courses/EditCoursesView.vue'),
-    }
+    },
+    {
+      path: '/stats',
+      name: 'Statistics',
+      component: () => import('../views/stats/StatisticsPage.vue'),
+    },
   ],
 })
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
-import DropdownMenu from '../components/stats/DropdownMenu.vue';
-import StatFrameList from '../components/stats/StatFrameList.vue';
+import DropdownMenu from '../stats/DropdownMenu.vue';
+import StatFrameList from '../stats/StatFrameList.vue';
 import { ref, onMounted } from 'vue';
 
 const coursesList = ref<string[]>([]);
