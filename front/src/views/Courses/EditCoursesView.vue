@@ -9,6 +9,7 @@ var nom = ref('');
 var credit = ref('');
 var description = ref('');
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const router = useRouter();
 const route = useRoute();
 const courseId = route.params.id;
@@ -23,7 +24,7 @@ async function ModifyCourses(code , nom , credit , description) {
 		body: JSON.stringify({code: code, name: nom , credits : credit , description : description})
 	};
     try {
-        const response = await fetch('http://localhost:3000/api/courses/'+courseId, requestOptions);
+        const response = await fetch('https://'+apiUrl+'/api/courses/'+courseId, requestOptions);
         if (!response.ok) {
             status.value = 'There was a problem please try again';
             throw new Error('Network response was not ok');
@@ -54,7 +55,7 @@ async function fetchCourses(courseId) {
         },
     };
     try {
-        const response = await fetch('http://localhost:3000/api/courses', requestOptions);
+        const response = await fetch('https://'+apiUrl+'/api/courses', requestOptions);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

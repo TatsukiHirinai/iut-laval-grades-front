@@ -1,6 +1,6 @@
 <script>
 const authToken = localStorage.getItem('authToken');
-
+const apiUrl = import.meta.env.VITE_API_URL;
 export default {
     name: 'GetStudentView',
     data() {
@@ -21,7 +21,7 @@ export default {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 }
             }
-            fetch(`http://localhost:3000/api/students/${studentId}`, requestOptions)
+            fetch('https://'+apiUrl+'/api/students/'+studentId, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                     this.student = data;

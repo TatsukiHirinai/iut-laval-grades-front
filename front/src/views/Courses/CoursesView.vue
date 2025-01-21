@@ -2,6 +2,7 @@
 import { ref , onMounted , computed} from 'vue'
 import { useRouter } from 'vue-router';
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const courses = ref([]);
 const searchTerm = ref('');
 
@@ -18,7 +19,7 @@ async function fetchCourses() {
         },
     };
     try {
-        const response = await fetch('http://localhost:3000/api/courses', requestOptions);
+        const response = await fetch('https://'+apiUrl+'/api/courses', requestOptions);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

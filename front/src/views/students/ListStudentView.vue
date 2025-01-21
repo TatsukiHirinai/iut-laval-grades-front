@@ -1,4 +1,5 @@
 <script>
+const apiUrl = import.meta.env.VITE_API_URL;
 export default {
     data() {
         return {
@@ -25,7 +26,7 @@ export default {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 },
             };
-            const response = await fetch('http://localhost:3000/api/students', requestOptions);
+            const response = await fetch('https://'+apiUrl+'/api/students', requestOptions);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
