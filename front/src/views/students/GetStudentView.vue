@@ -21,7 +21,7 @@ export default {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 }
             }
-            fetch(`https://'+apiUrl+'/api/students/${studentId}`, requestOptions)
+            fetch('https://'+apiUrl+'/api/students/'+studentId, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                     this.student = data;
