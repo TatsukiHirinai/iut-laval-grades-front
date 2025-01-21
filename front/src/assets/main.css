@@ -488,3 +488,81 @@ a {
 .student-details-table td:last-child {
     text-align: right;
 }
+
+/* === Grades === */
+
+
+.header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.add-grade-button {
+    background-color: #e11d48;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.students-dropdown {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.grades-table th,
+.grades-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.grades-table th {
+    background-color: #f3f4f6;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.grades-table td:last-child {
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-button svg {
+    color: #3b82f6;
+}
+
+.delete-button svg {
+    color: #e11d48;
+}

@@ -20,7 +20,7 @@ const departement = localStorage.getItem('departement')
         <RouterLink to="/courses" class="nav-link">
           <span>📚 Cours</span>
         </RouterLink>
-        <RouterLink to="/notes" class="nav-link">
+        <RouterLink to="/grades" class="nav-link">
           <span>🎓 Notes</span>
         </RouterLink>
         <RouterLink to="/statistics" class="nav-link">
