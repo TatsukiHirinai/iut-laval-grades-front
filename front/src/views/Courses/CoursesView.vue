@@ -51,6 +51,7 @@ async function deleteCourse(id) {
     };
     try {
         const response = await fetch('https://' + apiUrl + '/api/courses/' + id, requestOptions);
+
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
