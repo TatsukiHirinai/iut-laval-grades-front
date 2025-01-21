@@ -1,165 +1,145 @@
-<script setup>
-import { useRouter } from 'vue-router'
-
-const apiUrl = import.meta.env.VITE_API_URL;
-
-const router = useRouter()
-
-function goToAddGradePage() {
-    router.push('/grades/new')
-}
-
-function editGrade(gradeId) {
-    router.push(`/grades/${gradeId}/edit`)
-}
-</script>
-
-<template>
-    <div class="container">
-        <div class="header">
-            <h2>Notes des étudiants</h2>
-            <button class="add-grade-button" @click="goToAddGradePage">Ajouter une note</button>
-        </div>
-
-        <div class="search-bar">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-            </svg>
-            <input v-model="input" type="text" placeholder="Rechercher..." @change="showAvailableStudents(input)" />
-        </div>
-
-        <div class="search-bar"><select v-model="studentId" class="students-dropdown"
-                @change="fetchGradesPerStudentId(studentId)">
-                <option value="" default>Tous les étudiants</option>
-                <option v-for="student in filteredStudentsList" :key="student.id" :value="student.id">
-                    {{ student.firstName }} {{ student.lastName }}
-                </option>
-            </select>
-        </div>
-
-        <table class="grades-table">
-            <thead>
-                <tr>
-                    <th>Étudiant</th>
-                    <th>Cours</th>
-                    <th>Note</th>
-                    <th>Semestre</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="grade in gradesList" :key="grade.id">
-                    <td>{{ grade.studentFirstName }} {{ grade.studentLastName }}</td>
-                    <td>{{ grade.courseName }}</td>
-                    <td>{{ grade.grade }}/20</td>
-                    <td>{{ grade.semester }} - {{ grade.academicYear }}</td>
-                    <td class="actions">
-                        <button class="edit-button" @click="editGrade(grade.id)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-edit">
-                                <path
-                                    d="M11 4h10M6 20h12a2 2 0 0 0 2-2v-7.4a2 2 0 0 0-.6-1.4l-8-8a2 2 0 0 0-1.4-.6H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z" />
-                            </svg>
-                        </button>
-                        <button class="delete-button" @click="deleteGrade(grade.id)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-trash">
-                                <polyline points="3 6 5 6 21 6"></polyline>
-                                <path
-                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m5 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2">
-                                </path>
-                            </svg>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</template>
-
 <script>
-export default {
-    data() {
-        return {
-            studentsList: [],
-            gradesList: [],
-            studentGradesList: [],
-            studentId: '',
-            input: '',
-            filteredStudentsList: ''
-        }
-    },
-    async mounted() {
-        this.fetchStudentsList(),
-            this.fetchGradesList()
-    },
-    methods: {
-        async fetchStudentsList() {
-            try {
-                const requestOptions = { method: 'GET', headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` } }
-                const response = await fetch('http://' + apiUrl + '/api/students', requestOptions)
-                const data = await response.json()
-                this.studentsList = data
-                this.filteredStudentsList = this.studentsList
-            } catch (error) {
-                console.error('Error fetching student list:', error)
+    const apiUrl = import.meta.env.VITE_API_URL
+    export default {
+        data() {
+            return {
+                students: [],
+                grades: [],
+                studentGrades: [],
+                searchQuery: '',
+                studentId: ''
             }
         },
-        async fetchGradesList() {
-            try {
-                const requestOptions = { method: 'GET', headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` } }
-                const response = await fetch('http://' + apiUrl + '/api/grades', requestOptions)
-                const data = await response.json()
-                this.gradesList = data
-            } catch (error) {
-                console.error('Error fetching grades list:', error)
+        computed: {
+            filteredStudents() {
+                return this.students.filter(student => {
+                    const fullName = `${student.firstName} ${student.lastName}`.toLowerCase();
+                    return fullName.includes(this.searchQuery.toLowerCase()) ||
+                        student.email.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                        student.studentId.toLowerCase().includes(this.searchQuery.toLowerCase());
+                });
             }
         },
-        async fetchGradesPerStudentId(studentId) {
+        async fetchStudents() {
             try {
                 const requestOptions = {
                     method: 'GET',
-                    headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                    },
+                };
+                const response = await fetch('http://'+apiUrl+'/api/students', requestOptions);
+                if (!response.ok) {
+                    throw new Error('Network error');
                 }
-                const response = await fetch(`http://` + apiUrl + `/api/grades/student/${studentId}`, requestOptions)
-                const data = await response.json()
-                this.studentGradesList = data
-                console.log(this.studentGradesList)
+                const data = await response.json();
+                this.students = data;
+                console.log(this.students);
             } catch (error) {
-                console.error('Error fetching student grades list:', error)
+                console.error('Error fetching student list:', error);
             }
         },
-        async deleteGrade(gradeId) {
+        async fetchGrades() {
             try {
                 const requestOptions = {
-                    method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
-                }
-                const response = await fetch(`http://` + apiUrl + `/api/grades/${gradeId}`, requestOptions)
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                    },
+                };
+                const response = await fetch('http://'+apiUrl+'/api/grades', requestOptions);
                 if (!response.ok) {
-                    console.log('Network error')
-                } else {
-                    console.log('Grade deleted successfully')
+                    throw new Error('Network error');
                 }
+                const data = await response.json();
+                this.grades = data;
+                console.log(this.grades);
             } catch (error) {
-                console.error('Error deleting grade:', error)
+                console.error('Error fetching grades list:', error);
             }
         },
-        async showAvailableStudents(input) {
-            const result = [];
-            for (let i = 0; i < this.studentsList.length; i++) {
-                const student = this.studentsList[i];
-                if (student.firstName.toLowerCase().includes(input.toLowerCase())) {
-                    result.push(student);
+        methods: {
+            async fetchStudentGrades(studentId) {
+                try {
+                    const requestOptions = {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                        },
+                    };
+                    const response = await fetch('http://'+apiUrl+`/api/grades/student/${studentId}`, requestOptions);
+                    if (!response.ok) {
+                        throw new Error('Network error');
+                    }
+                    const data = await response.json();
+                    this.studentGrades = data;
+                    console.log(this.studentGrades);
+                } catch (error) {
+                    console.error('Error fetching student grades list:', error);
+                }
+            },
+            async deleteGrade(gradeId) {
+                try {
+                    const requestOptions = {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                        },
+                    };
+                    const response = await fetch('http://'+apiUrl+`/api/grades/${gradeId}`, requestOptions);
+                    if (!response.ok) {
+                        throw new Error('Network error');
+                    }
+                    console.log('Grade deleted successfully');
+                } catch (error) {
+                    console.error('Error deleting grade:', error);
                 }
             }
-
-            this.filteredStudentsList = result;
         }
     }
-}
 </script>
+
+<template>
+    <h2>Notes des étudiants
+        <RouterLink :to="{name: 'addGrade'}">
+            <button>Ajouter une note</button>
+        </RouterLink>
+    </h2>
+    <input type="text" v-model="searchQuery" placeholder="Rechercher..."><br>
+    <select v-model="studentId" @change="fetchStudentGrades(studentId)">
+        <option value="">Sélectionner un étudiant</option>
+        <option v-for="student in filteredStudents" :key="student.id" :value="student.id">
+            {{ student.firstName }} {{ student.lastName }}
+        </option>
+    </select><br>
+    <div v-for="grade in grades" :key="grade.id" :value="grade.id">
+        Etudiant : {{ grade.studentFirstName }} {{ grade.studentLastName }}
+        Note : {{ grade.grade }}
+        Cours : {{ grade.courseName }}
+        Code du cours : {{ grade.courseCode }}
+        Crédits : {{ grade.credits }}
+        Semestre : {{ grade.semester }}
+        Année : {{ grade.academicYear }}
+        <RouterLink :to="{name: 'editGrade', params: {gradeId: grade.id}}">
+            <button>Modifier</button>
+        </RouterLink>
+        <button @click="deleteGrade(grade.id)">Supprimer</button>
+    </div>
+    <div v-for="grade in studentGrades" :key="grade.id" :value="grade.id">
+        Etudiant : {{ grade.studentFirstName }} {{ grade.studentLastName }}
+        Note : {{ grade.grade }}
+        Cours : {{ grade.courseName }}
+        Code du cours : {{ grade.courseCode }}
+        Crédits : {{ grade.credits }}
+        Semestre : {{ grade.semester }}
+        Année : {{ grade.academicYear }}
+        <RouterLink :to="{name: 'editGrade', params: {gradeId: grade.id}}">
+            <button>Modifier</button>
+        </RouterLink>
+        <button @click="deleteGrade(grade.id)">Supprimer</button>
+    </div>
+</template>
