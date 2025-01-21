@@ -41,10 +41,6 @@ async function ModifyCourses(code, nom, credit, description) {
 
 }
 
-function cancel() {
-    router.push('/courses');
-}
-
 async function fetchCourses(courseId) {
     const requestOptions = {
         method: 'GET',

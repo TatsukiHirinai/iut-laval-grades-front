@@ -39,7 +39,6 @@ async function createStudent() {
     }
   } catch (error) {
     toast.error('Erreur lors de l\'ajout de l\'étudiant.');
-    console.error('Error adding student:', error);
   }
 }
 </script>
