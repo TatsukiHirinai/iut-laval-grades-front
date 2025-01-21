@@ -43,6 +43,11 @@ const router = createRouter({
       component: () => import('../views/Courses/EditCoursesView.vue'),
     },
     {
+      path: '/stats',
+      name: 'stats',
+      component: () => import('../views/stats/StatisticsPage.vue')
+    },
+    {
       path: '/grades',
       name: 'grades',
       component: () => import('../views/grades/GradesPage.vue')
