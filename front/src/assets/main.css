@@ -1,6 +1,7 @@
 /* === Général === */
 body {
     background-color: #f9fafb;
+    margin: 0px;
 }
 
 .container {
@@ -344,4 +345,67 @@ textarea {
 /* === Liens === */
 a {
     text-decoration: none;
+}
+
+/* === Header Global === */
+.global-header {
+    background-color: #D4451B;
+    padding: 0.5rem 1rem;
+    color: white;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    width: 120px;
+    height: 40px;
+    border-radius: 0.25rem;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 0.875rem;
+    color: #ffe4f0;
+}
+
+.header-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
+
+.nav-link:hover {
+    background-color: #434D94;
+    color: #fff;
 }
