@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification';
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const firstName = ref('');
 const lastName = ref('');
 const dateOfBirth = ref('');
@@ -29,7 +30,7 @@ async function createStudent() {
       body: JSON.stringify(student),
     };
 
-    const response = await fetch('http://localhost:3000/api/students', requestOptions);
+    const response = await fetch('https://'+apiUrl+'/api/students', requestOptions);
     if (response.ok) {
       toast.success('Étudiant ajouté avec succès!');
     } else {
