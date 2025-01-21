@@ -14,6 +14,7 @@ const toast = useToast();
 async function createStudent() {
   try {
     const student = {
+      id: Math.random() * 1243,
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
@@ -39,7 +40,6 @@ async function createStudent() {
     }
   } catch (error) {
     toast.error('Erreur lors de l\'ajout de l\'étudiant.');
-    console.error('Error adding student:', error);
   }
 }
 </script>

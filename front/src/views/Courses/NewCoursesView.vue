@@ -14,15 +14,15 @@ token = localStorage.getItem('authToken');
 
 const router = useRouter();
 
-async function AddCourses(code , nom , credit , description) {
+async function AddCourses(code, nom, credit, description) {
     const requestOptions = {
-		method: 'POST',
-		headers: { 
+        method: 'POST',
+        headers: {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({code: code, name: nom , credits : credit , description : description})
-	};
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code: code, name: nom, credits: credit, description: description })
+    };
     try {
         const response = await fetch('https://'+apiUrl+'/api/courses', requestOptions);
         if (!response.ok) {
@@ -31,7 +31,7 @@ async function AddCourses(code , nom , credit , description) {
         }
 
         const data = await response.json();
-        
+
         status.value = 'The course has been added successfully';
         router.push('/courses');
         return data;
@@ -39,36 +39,45 @@ async function AddCourses(code , nom , credit , description) {
         status.value = 'There was a problem please try again';
         return null;
     }
-    
-}
 
-function cancel() {
-    router.push('/courses');
 }
-</script>  
+</script>
 
 <template>
-        <form @submit.prevent="submitForm">
-            <br><br>
-            <p>Code du cours (min 2 charactere)</p>
-            <input v-model="code" placeholder="code du cours" type="text"
-            minlength="2"/>
-            <br><br>
-            <p>Nom du cours</p>
-            <input v-model="nom" placeholder="nom du cours" type="text"/>
-            <br><br>
-            <p>Crédits du cours (entre 1 et 60)</p>
-            <input v-model="credit" type="number"     
-                min="1"
-                max="60"
-                placeholder="Enter a number between 1 and 100"/>
-            <br><br>
-            <p>Desciption du cours</p>
-            <input v-model="description" placeholder="description" type="text"/>
-            <br><br>
-            <p>{{ status }}</p>
-            <button @click="AddCourses(code , nom , credit , description)">Ajouter</button>
-            <button @click="cancel()">Annuler</button>
-        </form>
+    <div class="container">
+        <div class="form-header">
+            <h1>Ajouter un cours</h1>
+        </div>
 
+        <form @submit.prevent="submitForm" class="course-form">
+            <div class="form-group">
+                <label for="code">Code du cours</label>
+                <input id="code" v-model="code" type="text" minlength="2" placeholder="Code du cours" required />
+            </div>
+
+            <div class="form-group">
+                <label for="nom">Nom du cours</label>
+                <input id="nom" v-model="nom" type="text" placeholder="Nom du cours" required />
+            </div>
+
+            <div class="form-group">
+                <label for="credits">Crédits</label>
+                <input id="credits" v-model="credit" type="number" min="1" max="60" placeholder="0" required />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" v-model="description" rows="4" placeholder="Description"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <RouterLink to="/courses">
+                    <button type="button" class="button cancel">Annuler</button>
+                </RouterLink>
+                <button type="submit" class="button add" @click="AddCourses(code, nom, credit, description)">
+                    Ajouter
+                </button>
+            </div>
+        </form>
+    </div>
 </template>
