@@ -1,17 +1,15 @@
-<script setup lang="ts">
+<script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import ConnectionView from './views/ConnectionView.vue';
 </script>
 
 <template>
   <header>
+    <nav>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/students">List Student</RouterLink>
+      <RouterLink to="/connection">Connexion</RouterLink>
+      <RouterLink to="/courses">Courses</RouterLink>
+    </nav>
   </header>
-  <nav>
-    <router-link to="/courses">Courses</router-link>
-    <router-link to="/connection">Connection</router-link>
-    <router-view></router-view>
-  </nav>
+  <RouterView />
 </template>
-
-<style scoped>
-</style>
