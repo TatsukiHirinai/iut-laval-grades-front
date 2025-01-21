@@ -24,7 +24,7 @@ async function ModifyCourses(code, nom, credit, description) {
         body: JSON.stringify({ code: code, name: nom, credits: credit, description: description })
     };
     try {
-        const response = await fetch('https://'+apiUrl+'/api/courses/'+courseId, requestOptions);
+        const response = await fetch('https://' + apiUrl + '/api/courses/' + courseId, requestOptions);
         if (!response.ok) {
             status.value = 'There was a problem please try again';
             throw new Error('Network response was not ok');
@@ -38,7 +38,7 @@ async function ModifyCourses(code, nom, credit, description) {
         status.value = 'There was a problem please try again';
         return null;
     }
-	
+}
 async function fetchCourses(courseId) {
     const requestOptions = {
         method: 'GET',
@@ -48,7 +48,7 @@ async function fetchCourses(courseId) {
         },
     };
     try {
-        const response = await fetch('https://'+apiUrl+'/api/courses', requestOptions);
+        const response = await fetch('https://' + apiUrl + '/api/courses', requestOptions);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -68,6 +68,7 @@ async function fetchCourses(courseId) {
         console.error('There was a problem with the fetch operation:', error);
     }
 }
+
 
 onMounted(() => {
     fetchCourses(courseId);
@@ -106,8 +107,7 @@ onMounted(() => {
                 <RouterLink to="/courses">
                     <button type="button" class="button cancel">Annuler</button>
                 </RouterLink>
-                <button type="submit" class="button add"
-                    @click="ModifyCourses(code, nom, credit, description)">Modifier
+                <button type="submit" class="button add" @click="ModifyCourses(code, nom, credit, description)">Modifier
                 </button>
             </div>
         </form>

@@ -408,7 +408,83 @@ a {
 .nav-link:hover {
     background-color: #434D94;
     color: #fff;
-/* === Liens === */
-a {
+}
+
+/* === Carte étudiant === */
+.student-details-solo {
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
+    color: #3b82f6;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.back-link svg {
+    margin-right: 8px;
+}
+
+.student-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.student-info h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.download-button {
+    display: flex;
+    align-items: center;
+    background-color: #434D94;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.download-button svg {
+    margin-right: 8px;
+}
+
+.student-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.student-details-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 16px;
+}
+
+.student-details-table td:first-child {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.student-details-table td:last-child {
+    text-align: right;
 }
