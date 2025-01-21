@@ -1,5 +1,4 @@
 <script>
-const authToken = localStorage.getItem('authToken');
 const apiUrl = import.meta.env.VITE_API_URL;
 export default {
     name: 'GetStudentView',
@@ -21,7 +20,7 @@ export default {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                 }
             }
-            fetch('https://'+apiUrl+'/api/students/'+studentId, requestOptions)
+            fetch('https://' + apiUrl + '/api/students/' + studentId, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                     this.student = data;
@@ -39,42 +38,49 @@ export default {
         }
     },
 };
+
 </script>
 
 <template>
-    <div class="container">
+    <div class="student-details-solo">
         <div class="header">
-            <RouterLink to="/students">
-                <button>Retour</button>
+            <RouterLink to="/students" class="back-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
+                    <line x1="19" x2="5" y1="12" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Retour à la liste
             </RouterLink>
         </div>
 
-        <div v-if="error" class="error-message">
-            <p>{{ error }}</p>
+        <div class="student-card">
+            <div class="student-info">
+                <h1>{{ student.firstName }} {{ student.lastName }}</h1>
+                <p><strong>Numéro étudiant:</strong> {{ student.studentId }}</p>
+            </div>
+            <button class="download-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" x2="12" y1="15" y2="3"></line>
+                </svg>
+                Relevé de notes
+            </button>
         </div>
 
-        <div v-else-if="isLoading">
-            <p>Loading...</p>
-        </div>
-
-        <div v-else>
-            <div>
-                <p>{{ student.firstName }}</p>
-                <p>{{ student.lastName }}</p>
-                <p><strong>Numéro d'étudiant :</strong> {{ student.studentId }}</p>
-                <p><strong>Email :</strong> {{ student.email }}</p>
-                <p><strong>Date de naissance :</strong> {{ formattedDateOfBirth }}</p>
-                <button><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-download h-5 w-5 mr-2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" x2="12" y1="15" y2="3"></line>
-                    </svg>Relevé de notes</button>
-            </div>
-            <div>
-                Notes
-            </div>
-        </div>
+        <table class="student-details-table">
+            <tbody>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td>{{ student.email }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Date de naissance</strong></td>
+                    <td>{{ formatDate(student.dateOfBirth) }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
