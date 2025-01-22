@@ -39,6 +39,7 @@ async function ModifyCourses(code, nom, credit, description) {
         return null;
     }
 }
+
 async function fetchCourses(courseId) {
     const requestOptions = {
         method: 'GET',

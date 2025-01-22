@@ -27,7 +27,7 @@
                 } catch (error) {
                     console.error('Error editing grade', error)
                 }
-            }
+            } 
         }
     }
 </script>
