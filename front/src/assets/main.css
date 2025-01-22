@@ -1,6 +1,7 @@
 /* === Général === */
-body{
+body {
     background-color: #f9fafb;
+    margin: 0px;
 }
 
 .container {
@@ -89,7 +90,7 @@ body{
     max-width: 800px;
 }
 
-.ul-student{    
+.ul-student {
     margin-block-start: 0em;
     margin-block-end: 0em;
     padding-inline-start: 0px;
@@ -160,6 +161,7 @@ body{
 
 .form-group {
     display: flex;
+    margin-bottom: 20px;
     flex-direction: column;
 }
 
@@ -216,7 +218,352 @@ body{
     background-color: #20254F;
 }
 
+/* === Cours === */
+.add-btn {
+    background-color: #ff007f;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background-color: #e60072;
+}
+
+.course-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.course-table th,
+.course-table td {
+    text-align: left;
+    padding: 12px 15px;
+}
+
+.course-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    font-size: 14px;
+    color: #666;
+}
+
+.course-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.course-table td {
+    font-size: 14px;
+    color: #333;
+}
+
+.course-table .course-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.icon-btn:hover {
+    opacity: 0.8;
+}
+
+.edit-btn svg {
+    stroke: #007bff;
+}
+
+.delete-btn svg {
+    stroke: #dc3545;
+}
+
+.form-header {
+    margin-bottom: 20px;
+}
+
+.course-form {
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #ff007f;
+}
+
+textarea {
+    resize: none;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* === Formulaire connection === */
+.form-connection {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
 /* === Liens === */
 a {
     text-decoration: none;
+}
+
+/* === Header Global === */
+.global-header {
+    background-color: #D4451B;
+    padding: 0.5rem 1rem;
+    color: white;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    width: 120px;
+    height: 40px;
+    border-radius: 0.25rem;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 0.875rem;
+    color: #ffe4f0;
+}
+
+.header-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
+
+.nav-link:hover {
+    background-color: #434D94;
+    color: #fff;
+}
+
+/* === Carte étudiant === */
+.student-details-solo {
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: #3b82f6;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.back-link svg {
+    margin-right: 8px;
+}
+
+.student-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.student-info h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.download-button {
+    display: flex;
+    align-items: center;
+    background-color: #434D94;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.download-button svg {
+    margin-right: 8px;
+}
+
+.student-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.student-details-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 16px;
+}
+
+.student-details-table td:first-child {
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.student-details-table td:last-child {
+    text-align: right;
+}
+
+/* === Grades === */
+.header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.add-grade-button {
+    background-color: #e11d48;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.students-dropdown {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.grades-table {
+    max-width: 800px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.grades-table th,
+.grades-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.grades-table th {
+    background-color: #f3f4f6;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.grades-table td:last-child {
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-button svg {
+    color: #3b82f6;
+}
+
+.delete-button svg {
+    color: #e11d48;
 }
