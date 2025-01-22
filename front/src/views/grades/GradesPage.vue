@@ -128,7 +128,7 @@
         Crédits : {{ grade.credits }}
         Semestre : {{ grade.semester }}
         Année : {{ grade.academicYear }}
-        <RouterLink :to="{name: 'editGrade', params: {gradeId: grade.id}}">
+        <RouterLink :to="{name: 'editGrade', params: {id: grade.id}}">
             <button>Modifier</button>
         </RouterLink>
         <button @click="deleteGrade(grade.id)">Supprimer</button>
@@ -141,7 +141,7 @@
         Crédits : {{ grade.credits }}
         Semestre : {{ grade.semester }}
         Année : {{ grade.academicYear }}
-        <RouterLink :to="{name: 'editGrade', params: {gradeId: grade.id}}">
+        <RouterLink :to="{name: 'editGrade', params: {id: grade.id}}">
             <button>Modifier</button>
         </RouterLink>
         <button @click="deleteGrade(grade.id)">Supprimer</button>
