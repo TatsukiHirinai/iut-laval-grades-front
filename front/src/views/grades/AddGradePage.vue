@@ -21,7 +21,7 @@
                         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                     }
                 }
-                const response = await fetch('http://'+apiUrl+'/api/students', requestOptions)
+                const response = await fetch('https://'+apiUrl+'/api/students', requestOptions)
                 if (!response.ok) {
                     throw new Error('Network error')
                 }
@@ -41,7 +41,7 @@
                         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                     }
                 }
-                const response = await fetch('http://'+apiUrl+'/api/courses', requestOptions)
+                const response = await fetch('https://'+apiUrl+'/api/courses', requestOptions)
                 if (!response.ok) {
                     throw new Error('Network error')
                 }
@@ -69,7 +69,7 @@
                             academicYear: academicYear
                         })
                     }
-                    const response = await fetch('http://'+apiUrl+'/api/grades', requestOptions)
+                    const response = await fetch('https://'+apiUrl+'/api/grades', requestOptions)
                     if (!response.ok) {
                         throw new Error('Network error')
                     }

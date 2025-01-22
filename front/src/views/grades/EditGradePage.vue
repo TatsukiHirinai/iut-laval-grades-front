@@ -19,7 +19,7 @@
                             grade: grade
                         })
                     }
-                    const response = await fetch('http://'+apiUrl+`/api/grades/${window.location.pathname.split('/')[2]}`, requestOptions)
+                    const response = await fetch('https://'+apiUrl+`/api/grades/${window.location.pathname.split('/')[2]}`, requestOptions)
                     if (!response.ok) {
                         console.log('Network error')
                     }
@@ -27,8 +27,6 @@
                 } catch (error) {
                     console.error('Error editing grade', error)
                 }
-            } catch (error) {
-                console.error('Error editing grade', error)
             }
         }
     }
