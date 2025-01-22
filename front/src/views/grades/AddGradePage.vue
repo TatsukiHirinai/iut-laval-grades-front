@@ -12,47 +12,51 @@
                 year: ''
             }
         },
-        async fetchStudents() {
-            try {
-                const requestOptions = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-                    }
-                }
-                const response = await fetch('http://'+apiUrl+'/api/students', requestOptions)
-                if (!response.ok) {
-                    throw new Error('Network error')
-                }
-                const data = await response.json()
-                this.students = data
-                console.log(this.students)
-            } catch (error) {
-                console.error('Error fetching student list:', error)
-            }
-        },
-        async fetchCourses() {
-            try {
-                const requestOptions = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-                    }
-                }
-                const response = await fetch('http://'+apiUrl+'/api/courses', requestOptions)
-                if (!response.ok) {
-                    throw new Error('Network error')
-                }
-                const data = await response.json()
-                this.courses = data
-                console.log(this.courses)
-            } catch (error) {
-                console.error('Error fetching courses list:', error)
-            }
+        mounted() {
+            this.fetchStudents(),
+            this.fetchCourses()
         },
         methods: {
+            async fetchStudents() {
+                try {
+                    const requestOptions = {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                        }
+                    }
+                    const response = await fetch('https://'+apiUrl+'/api/students', requestOptions)
+                    if (!response.ok) {
+                        throw new Error('Network error')
+                    }
+                    const data = await response.json()
+                    this.students = data
+                    console.log(this.students)
+                } catch (error) {
+                    console.error('Error fetching student list:', error)
+                }
+            },
+            async fetchCourses() {
+                try {
+                    const requestOptions = {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                        }
+                    }
+                    const response = await fetch('https://'+apiUrl+'/api/courses', requestOptions)
+                    if (!response.ok) {
+                        throw new Error('Network error')
+                    }
+                    const data = await response.json()
+                    this.courses = data
+                    console.log(this.courses)
+                } catch (error) {
+                    console.error('Error fetching courses list:', error)
+                }
+            },
             async addGrade(studentId, courseId, grade, semester, academicYear) {
                 try {
                     const requestOptions = {
@@ -69,7 +73,7 @@
                             academicYear: academicYear
                         })
                     }
-                    const response = await fetch('http://'+apiUrl+'/api/grades', requestOptions)
+                    const response = await fetch('https://'+apiUrl+'/api/grades', requestOptions)
                     if (!response.ok) {
                         throw new Error('Network error')
                     }

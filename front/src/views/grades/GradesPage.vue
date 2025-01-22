@@ -10,6 +10,10 @@
                 studentId: ''
             }
         },
+        mounted() {
+            this.fetchStudents(),
+            this.fetchGrades()
+        },
         computed: {
             filteredStudents() {
                 return this.students.filter(student => {
@@ -20,47 +24,47 @@
                 });
             }
         },
-        async fetchStudents() {
-            try {
-                const requestOptions = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                    },
-                };
-                const response = await fetch('http://'+apiUrl+'/api/students', requestOptions);
-                if (!response.ok) {
-                    throw new Error('Network error');
-                }
-                const data = await response.json();
-                this.students = data;
-                console.log(this.students);
-            } catch (error) {
-                console.error('Error fetching student list:', error);
-            }
-        },
-        async fetchGrades() {
-            try {
-                const requestOptions = {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                    },
-                };
-                const response = await fetch('http://'+apiUrl+'/api/grades', requestOptions);
-                if (!response.ok) {
-                    throw new Error('Network error');
-                }
-                const data = await response.json();
-                this.grades = data;
-                console.log(this.grades);
-            } catch (error) {
-                console.error('Error fetching grades list:', error);
-            }
-        },
         methods: {
+            async fetchStudents() {
+                try {
+                    const requestOptions = {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                        },
+                    };
+                    const response = await fetch('https://'+apiUrl+'/api/students', requestOptions);
+                    if (!response.ok) {
+                        throw new Error('Network error');
+                    }
+                    const data = await response.json();
+                    this.students = data;
+                    console.log(this.students);
+                } catch (error) {
+                    console.error('Error fetching student list:', error);
+                }
+            },
+            async fetchGrades() {
+                try {
+                    const requestOptions = {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+                        },
+                    };
+                    const response = await fetch('https://'+apiUrl+'/api/grades', requestOptions);
+                    if (!response.ok) {
+                        throw new Error('Network error');
+                    }
+                    const data = await response.json();
+                    this.grades = data;
+                    console.log(this.grades);
+                } catch (error) {
+                    console.error('Error fetching grades list:', error);
+                }
+            },
             async fetchStudentGrades(studentId) {
                 try {
                     const requestOptions = {
@@ -70,7 +74,7 @@
                             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                         },
                     };
-                    const response = await fetch('http://'+apiUrl+`/api/grades/student/${studentId}`, requestOptions);
+                    const response = await fetch('https://'+apiUrl+`/api/grades/student/${studentId}`, requestOptions);
                     if (!response.ok) {
                         throw new Error('Network error');
                     }
@@ -90,7 +94,7 @@
                             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
                         },
                     };
-                    const response = await fetch('http://'+apiUrl+`/api/grades/${gradeId}`, requestOptions);
+                    const response = await fetch('https://'+apiUrl+`/api/grades/${gradeId}`, requestOptions);
                     if (!response.ok) {
                         throw new Error('Network error');
                     }
@@ -124,7 +128,7 @@
         Crédits : {{ grade.credits }}
         Semestre : {{ grade.semester }}
         Année : {{ grade.academicYear }}
-        <RouterLink :to="{name: 'editGrade', params: {gradeId: grade.id}}">
+        <RouterLink :to="{name: 'editGrade', params: {id: grade.id}}">
             <button>Modifier</button>
         </RouterLink>
         <button @click="deleteGrade(grade.id)">Supprimer</button>
@@ -137,7 +141,7 @@
         Crédits : {{ grade.credits }}
         Semestre : {{ grade.semester }}
         Année : {{ grade.academicYear }}
-        <RouterLink :to="{name: 'editGrade', params: {gradeId: grade.id}}">
+        <RouterLink :to="{name: 'editGrade', params: {id: grade.id}}">
             <button>Modifier</button>
         </RouterLink>
         <button @click="deleteGrade(grade.id)">Supprimer</button>
